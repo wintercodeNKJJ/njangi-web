@@ -1,0 +1,83 @@
+:root{
+  /* ── Base ramps ───────────────────────────────────────────── */
+  /* Clay — the primary brand colour. Burnt terracotta. */
+  --clay-50:#FDF1EA;--clay-100:#FADCCB;--clay-200:#F5BC9E;--clay-300:#EE9670;
+  --clay-400:#E87847;--clay-500:#DE5A22;--clay-600:#C24A19;--clay-700:#9A3A13;
+  --clay-800:#712A0E;--clay-900:#4B1C09;
+
+  /* Ochre — gold accent. Highlights, streaks, money-earned. */
+  --ochre-50:#FEF6E4;--ochre-100:#FBE8BC;--ochre-200:#F7D287;--ochre-300:#F3BC53;
+  --ochre-400:#EFA92F;--ochre-500:#E0921A;--ochre-600:#BC7513;--ochre-700:#94590F;
+  --ochre-800:#6B3F0B;--ochre-900:#472907;
+
+  /* Cocoa — the neutral. Warm brown-greys, never blue-grey. */
+  --cocoa-50:#FBF7F3;--cocoa-100:#F3EBE3;--cocoa-200:#E5D8CC;--cocoa-300:#CFBCAB;
+  --cocoa-400:#AC9382;--cocoa-500:#877063;--cocoa-600:#68544A;--cocoa-700:#4B3B33;
+  --cocoa-800:#33261F;--cocoa-900:#1F1511;
+
+  /* Palm — green. Success, paid, on-track. */
+  --palm-50:#F1F6E8;--palm-100:#DDE9C6;--palm-200:#C0D796;--palm-300:#A1C167;
+  --palm-400:#88AC48;--palm-500:#6E9134;--palm-600:#57742A;--palm-700:#42581F;
+  --palm-800:#2E3D16;--palm-900:#1D270E;
+
+  /* Hibiscus — pink/red. Overdue, danger, the one loud decorative colour. */
+  --hibiscus-50:#FDECF1;--hibiscus-100:#F9CCD9;--hibiscus-200:#F3A0B8;
+  --hibiscus-300:#EA7395;--hibiscus-400:#DF5279;--hibiscus-500:#CB3660;
+  --hibiscus-600:#A92A4E;--hibiscus-700:#83203C;--hibiscus-800:#5D162A;
+  --hibiscus-900:#3D0E1B;
+
+  /* Indigo cloth — deep blue borrowed from wax print. Rare, informational. */
+  --indigo-50:#EDF1F7;--indigo-100:#CFDAEA;--indigo-200:#9FB4D3;
+  --indigo-300:#6E8DBB;--indigo-400:#4B6EA4;--indigo-500:#365489;
+  --indigo-600:#2A4270;--indigo-700:#1F3155;--indigo-800:#152139;
+  --indigo-900:#0D1523;
+
+  --white:#FFFFFF;
+  --cream:#FBF6EF;   /* the page. Everything sits on this. */
+  --sand:#F5EDE2;    /* the recessed / inset tone */
+
+  /* ── Semantic aliases ─────────────────────────────────────── */
+  --bg-page:var(--cream);
+  --bg-inset:var(--sand);
+  --bg-dark:var(--cocoa-900);
+
+  --surface-card:var(--white);
+  --surface-card-alt:var(--cocoa-50);
+  --surface-card-dark:var(--cocoa-900);
+  --surface-accent:var(--clay-500);
+  --surface-accent-soft:var(--clay-50);
+  --surface-gold:var(--ochre-300);
+  --surface-gold-soft:var(--ochre-50);
+
+  --text-heading:var(--cocoa-900);
+  --text-body:var(--cocoa-700);
+  --text-muted:var(--cocoa-500);
+  --text-faint:var(--cocoa-400);
+  --text-on-dark:var(--cocoa-50);
+  --text-on-dark-muted:var(--cocoa-300);
+  --text-on-accent:var(--white);
+  --text-on-gold:var(--cocoa-900);
+  --text-link:var(--clay-600);
+  --text-link-hover:var(--clay-700);
+
+  --border-subtle:var(--cocoa-100);
+  --border-default:var(--cocoa-200);
+  --border-strong:var(--cocoa-300);
+  --border-focus:var(--clay-500);
+
+  --accent-primary:var(--clay-500);
+  --accent-primary-hover:var(--clay-600);
+  --accent-primary-press:var(--clay-700);
+  --accent-secondary:var(--ochre-400);
+
+  --status-success:var(--palm-500);
+  --status-success-soft:var(--palm-50);
+  --status-warning:var(--ochre-500);
+  --status-warning-soft:var(--ochre-50);
+  --status-danger:var(--hibiscus-500);
+  --status-danger-soft:var(--hibiscus-50);
+  --status-info:var(--indigo-500);
+  --status-info-soft:var(--indigo-50);
+
+  --focus-ring:0 0 0 3px color-mix(in oklab, var(--clay-500) 32%, transparent);
+}

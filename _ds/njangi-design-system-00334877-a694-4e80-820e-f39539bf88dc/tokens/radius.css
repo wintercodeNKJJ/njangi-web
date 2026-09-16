@@ -1,0 +1,12 @@
+:root{
+  /* Rounding is the loudest brand signal. Nothing in Njangi has a sharp corner. */
+  --radius-xs:6px;
+  --radius-sm:10px;
+  --radius-md:14px;    /* icon tiles, inputs, small chips */
+  --radius-lg:18px;    /* list rows */
+  --radius-xl:22px;    /* standard card */
+  --radius-2xl:28px;   /* hero card, bottom sheet, phone-content panel */
+  --radius-3xl:36px;
+  --radius-pill:999px; /* buttons, tabs, day pills, badges — the default for controls */
+  --radius-phone:44px;
+}

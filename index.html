@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/colors.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/typography.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/radius.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/motion.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/tokens/base.css">
+<link rel="stylesheet" href="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/styles.css">
+<script src="_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/_ds_bundle.js"></script>
+<script src="app/globals.js"></script>
+<style>
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+  body { margin: 0; background: var(--bg-page); color: var(--text-body); font: var(--type-body); }
+  a { color: var(--clay-600); text-decoration: none; }
+  a:hover { color: var(--clay-700); }
+  @keyframes njRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .njangi-scroll::-webkit-scrollbar { width: 0; height: 0; }
+  .nj-strip { scrollbar-width: none; }
+  .nj-strip::-webkit-scrollbar { width: 0; height: 0; }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background: var(--bg-page);">
+
+  <header style="position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--bg-page) 82%, transparent); backdrop-filter: saturate(150%) blur(14px); border-bottom: 1px solid var(--border-subtle);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 3vw, 32px); height: 76px; display: flex; align-items: center; gap: clamp(10px, 2vw, 32px);">
+      <div onClick="{{ goHome }}" style="cursor: pointer; display: flex; align-items: center;">
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Logo" variant="lockup" size="{{ 38 }}" tile="gold" hint-size="140px,38px"></x-import>
+      </div>
+      <nav style="display: {{ navDisplay }}; gap: 26px; flex: 1;">
+        <a href="#how" onClick="{{ goHowLink }}" style="font: var(--type-body-sm); font-weight: 500; color: var(--text-body);">{{ navHow }}</a>
+        <a href="#app" onClick="{{ goAppLink }}" style="font: var(--type-body-sm); font-weight: 500; color: var(--text-body);">{{ navApp }}</a>
+        <a href="#fees" onClick="{{ goFeesLink }}" style="font: var(--type-body-sm); font-weight: 500; color: var(--text-body);">{{ navFees }}</a>
+        <a href="#faq" onClick="{{ goFaqLink }}" style="font: var(--type-body-sm); font-weight: 500; color: var(--text-body);">{{ navFaq }}</a>
+      </nav>
+      <div style="flex: {{ spacerFlex }};"></div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; background: var(--bg-inset);">
+          <button onClick="{{ setEn }}" style="border: none; cursor: pointer; border-radius: 999px; padding: 5px 11px; font: var(--type-caption); font-weight: 600; background: {{ enPillBg }}; color: {{ enPillFg }};">EN</button>
+          <button onClick="{{ setFr }}" style="border: none; cursor: pointer; border-radius: 999px; padding: 5px 11px; font: var(--type-caption); font-weight: 600; background: {{ frPillBg }}; color: {{ frPillFg }};">FR</button>
+        </div>
+        <span style="display: {{ signinDisplay }};"><x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="ghost" size="sm" onClick="{{ openSheet }}" hint-size="72px,38px">{{ navSignIn }}</x-import></span>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="primary" size="sm" iconAfter="arrow-right" onClick="{{ openSheet }}" hint-size="130px,38px">{{ ctaAppShort }}</x-import>
+        <span style="display: {{ menuBtnDisplay }};"><x-import component-from-global-scope="NjangiDesignSystem_003348.IconButton" icon="{{ menuIcon }}" label="Menu" onClick="{{ toggleMenu }}" hint-size="40px,40px"></x-import></span>
+      </div>
+    </div>
+    <sc-if value="{{ menuOpen }}">
+      <div style="border-top: 1px solid var(--border-subtle); padding: 14px clamp(20px, 3vw, 32px) 22px; display: flex; flex-direction: column; gap: 4px;">
+        <a href="#how" onClick="{{ mHow }}" style="font: var(--type-body); color: var(--text-heading); padding: 10px 0;">{{ navHow }}</a>
+        <a href="#app" onClick="{{ mApp }}" style="font: var(--type-body); color: var(--text-heading); padding: 10px 0;">{{ navApp }}</a>
+        <a href="#fees" onClick="{{ mFees }}" style="font: var(--type-body); color: var(--text-heading); padding: 10px 0;">{{ navFees }}</a>
+        <a href="#faq" onClick="{{ mFaq }}" style="font: var(--type-body); color: var(--text-heading); padding: 10px 0;">{{ navFaq }}</a>
+        <a href="#about" onClick="{{ mAbout }}" style="font: var(--type-body); color: var(--text-heading); padding: 10px 0; border-top: 1px solid var(--border-subtle);">{{ navAbout }}</a>
+        <a href="#signin" onClick="{{ mSignIn }}" style="font: var(--type-body); color: var(--text-link); padding: 10px 0;">{{ navSignIn }}</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+
+    <section style="max-width: 1180px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 32px) clamp(44px, 5vw, 64px);">
+      <div style="display: grid; grid-template-columns: {{ heroGrid }}; gap: clamp(32px, 4vw, 56px); align-items: center;">
+        <div>
+          <div style="animation: njRise 0.6s var(--ease-entrance) both;">
+            <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ heroEyebrow }}</div>
+            <h1 style="font: var(--weight-semibold) var(--text-5xl)/1.03 var(--font-display); font-size: clamp(34px, 7.4vw, 48px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 16px 0 0;">{{ heroTitleA }}<br>{{ heroTitleB }}</h1>
+            <p style="font: var(--type-body); font-size: var(--text-md); color: var(--text-muted); margin: 20px 0 0; max-width: 460px; text-wrap: pretty;">{{ heroBody }}</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; animation: njRise 0.6s 0.08s var(--ease-entrance) both;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="primary" size="lg" iconAfter="arrow-right" onClick="{{ openSheet }}" hint-size="190px,54px">{{ ctaStart }}</x-import>
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="secondary" size="lg" icon="play" onClick="{{ goHow }}" hint-size="200px,54px">{{ ctaHow }}</x-import>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: center; margin-top: 30px; animation: njRise 0.6s 0.16s var(--ease-entrance) both;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.AvatarStack" people="{{ members }}" size="md" max="{{ 5 }}" hint-size="130px,36px"></x-import>
+            <div style="font: var(--type-body-sm); color: var(--text-muted);"><strong style="color: var(--text-heading);">{{ heroProofStrong }}</strong> {{ heroProofRest }}</div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; animation: njRise 0.7s 0.1s var(--ease-entrance) both;">
+          <div style="position: relative;">
+            <div style="position: absolute; inset: -40px -30px; border-radius: 50%; background: radial-gradient(circle at 50% 45%, var(--clay-100), transparent 70%);"></div>
+            <div style="position: relative; width: min(330px, 100%); display: flex; flex-direction: column; gap: 12px;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="dark" radius="2xl" pad="{{ 20 }}" hint-size="100%,150px">
+                <div style="font: var(--type-caption); color: var(--cocoa-300);">{{ potLabel }}</div>
+                <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 6px;">
+                  <span style="font: var(--type-amount); color: var(--white); font-variant-numeric: tabular-nums;">{{ nPot }}</span>
+                  <span style="font: var(--type-body-sm); color: var(--cocoa-300);">FCFA</span>
+                </div>
+                <div style="margin-top: 18px;">
+                  <div style="height: 8px; border-radius: 999px; background: var(--cocoa-800); overflow: hidden;">
+                    <div style="width: 75%; height: 100%; background: var(--ochre-300); border-radius: 999px;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; margin-top: 8px; font: var(--type-caption); color: var(--cocoa-400);">
+                    <span>{{ paidOf }}</span><span>{{ roundOf }}</span>
+                  </div>
+                </div>
+              </x-import>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" avatar="{{ sonaAvatar }}" title="Sona Bih" subtitle="{{ collectsNow }}" value="{{ turnLabel }}" hint-size="100%,72px"></x-import>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" icon="arrow-up-right" iconTone="palm" title="{{ paidShare }}" subtitle="{{ hoursAgo }}" value="{{ nShare }}" valueSub="FCFA" hint-size="100%,72px"></x-import>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="gold" radius="xl" pad="{{ 16 }}" hint-size="100%,72px">
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <x-import component-from-global-scope="NjangiDesignSystem_003348.IconTile" icon="bell" tone="dark" size="{{ 38 }}" hint-size="38px,38px"></x-import>
+                  <div style="font: var(--type-body-sm); color: var(--cocoa-900); font-weight: 500;">{{ nudge }}</div>
+                </div>
+              </x-import>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" style="background: var(--bg-inset);">
+      <div style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px);">
+        <div style="max-width: 640px;" data-reveal>
+          <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ howEyebrow }}</div>
+          <h2 style="font: var(--weight-semibold) var(--text-3xl)/1.1 var(--font-display); font-size: clamp(24px, 3.4vw, 30px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 14px 0 0; text-wrap: pretty;">{{ howTitle }}</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 40px;" data-reveal>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 20 }}" hint-size="100%,210px">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.IconTile" icon="users-round" tone="clay" size="{{ 46 }}" radius="lg" hint-size="46px,46px"></x-import>
+              <span style="font: var(--weight-semibold) var(--text-xl)/1 var(--font-display); color: var(--cocoa-200);">01</span>
+            </div>
+            <div style="margin-top: 14px;">
+              <div style="font: var(--type-h3); color: var(--text-heading);">{{ s1t }}</div>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 6px 0 0;">{{ s1b }}</p>
+            </div>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 20 }}" hint-size="100%,210px">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.IconTile" icon="shuffle" tone="ochre" size="{{ 46 }}" radius="lg" hint-size="46px,46px"></x-import>
+              <span style="font: var(--weight-semibold) var(--text-xl)/1 var(--font-display); color: var(--cocoa-200);">02</span>
+            </div>
+            <div style="margin-top: 14px;">
+              <div style="font: var(--type-h3); color: var(--text-heading);">{{ s2t }}</div>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 6px 0 0;">{{ s2b }}</p>
+            </div>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 20 }}" hint-size="100%,210px">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <x-import component-from-global-scope="NjangiDesignSystem_003348.PayLogo" provider="momo" size="{{ 46 }}" radius="lg" hint-size="46px,46px"></x-import>
+                <x-import component-from-global-scope="NjangiDesignSystem_003348.PayLogo" provider="orange" size="{{ 46 }}" radius="lg" hint-size="46px,46px"></x-import>
+              </div>
+              <span style="font: var(--weight-semibold) var(--text-xl)/1 var(--font-display); color: var(--cocoa-200);">03</span>
+            </div>
+            <div style="margin-top: 14px;">
+              <div style="font: var(--type-h3); color: var(--text-heading);">{{ s3t }}</div>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 6px 0 0;">{{ s3b }}</p>
+            </div>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 20 }}" hint-size="100%,210px">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.IconTile" icon="party-popper" tone="hibiscus" size="{{ 46 }}" radius="lg" hint-size="46px,46px"></x-import>
+              <span style="font: var(--weight-semibold) var(--text-xl)/1 var(--font-display); color: var(--cocoa-200);">04</span>
+            </div>
+            <div style="margin-top: 14px;">
+              <div style="font: var(--type-h3); color: var(--text-heading);">{{ s4t }}</div>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 6px 0 0;">{{ s4b }}</p>
+            </div>
+          </x-import>
+        </div>
+      </div>
+    </section>
+
+    <section id="app" style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px) 40px;">
+      <div style="max-width: 620px;" data-reveal>
+        <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ appEyebrow }}</div>
+        <h2 style="font: var(--weight-semibold) var(--text-3xl)/1.1 var(--font-display); font-size: clamp(24px, 3.4vw, 30px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 14px 0 0; text-wrap: pretty;">{{ appTitle }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 14px 0 0;">{{ appLead }}</p>
+      </div>
+
+      <sc-if value="{{ isWideShowcase }}" hint-placeholder-val="{{ true }}">
+      <div style="display: grid; grid-template-columns: {{ showcaseGrid }}; gap: clamp(28px, 4vw, 64px); align-items: stretch; margin-top: 48px;">
+        <div style="display: flex; flex-direction: column; gap: 18px; padding: {{ featurePad }};">
+          <div data-feature="0" style="display: flex; gap: 18px; min-height: {{ featureMinH }};">
+            <div style="width: 3px; border-radius: 999px; background: var(--clay-500); flex: none; opacity: {{ o0 }}; transition: opacity 220ms var(--ease-standard);"></div>
+            <div>
+              <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-muted);">{{ f1k }}</div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 10px 0 0;">{{ f1t }}</h3>
+              <p style="font: var(--type-body); color: var(--text-muted); margin: 10px 0 0; max-width: 400px;">{{ f1b }}</p>
+            </div>
+          </div>
+          <div data-feature="1" style="display: flex; gap: 18px; min-height: {{ featureMinH }};">
+            <div style="width: 3px; border-radius: 999px; background: var(--clay-500); flex: none; opacity: {{ o1 }}; transition: opacity 220ms var(--ease-standard);"></div>
+            <div>
+              <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-muted);">{{ f2k }}</div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 10px 0 0;">{{ f2t }}</h3>
+              <p style="font: var(--type-body); color: var(--text-muted); margin: 10px 0 0; max-width: 400px;">{{ f2b }}</p>
+            </div>
+          </div>
+          <div data-feature="2" style="display: flex; gap: 18px; min-height: {{ featureMinH }};">
+            <div style="width: 3px; border-radius: 999px; background: var(--clay-500); flex: none; opacity: {{ o2 }}; transition: opacity 220ms var(--ease-standard);"></div>
+            <div>
+              <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-muted);">{{ f3k }}</div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 10px 0 0;">{{ f3t }}</h3>
+              <p style="font: var(--type-body); color: var(--text-muted); margin: 10px 0 0; max-width: 400px;">{{ f3b }}</p>
+            </div>
+          </div>
+          <div data-feature="3" style="display: flex; gap: 18px; min-height: {{ featureMinH }};">
+            <div style="width: 3px; border-radius: 999px; background: var(--clay-500); flex: none; opacity: {{ o3 }}; transition: opacity 220ms var(--ease-standard);"></div>
+            <div>
+              <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--text-muted);">{{ f4k }}</div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 10px 0 0;">{{ f4t }}</h3>
+              <p style="font: var(--type-body); color: var(--text-muted); margin: 10px 0 0; max-width: 400px;">{{ f4b }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="align-self: stretch; order: {{ phoneOrder }}; min-width: 0; max-width: 100%;">
+          <div class="nj-strip" style="position: {{ stripPos }}; top: 110px; height: {{ stripHeight }}; width: {{ stripWidth }}; margin: 0 auto; display: {{ stripDisplay }}; gap: 16px; padding-inline: {{ stripPadInline }}; overflow-x: {{ stripOverflow }}; overflow-y: visible; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+            <div style="display: {{ washDisplay }}; position: absolute; inset: 40px -20px 60px; border-radius: 50%; background: radial-gradient(circle at 50% 45%, var(--clay-100), transparent 72%);"></div>
+            <div style="position: {{ phonePos }}; inset: {{ phoneInset }}; flex: none; width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; scroll-snap-align: center; opacity: {{ p0 }}; transition: opacity 340ms var(--ease-standard); z-index: {{ z0 }};">
+              <div style="width: {{ phoneInnerW }}; height: {{ phoneInnerH }}; transform: scale({{ phoneScale }}); transform-origin: {{ phoneOrigin }};">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="HomeScreen" from="app/HomeScreen.jsx" onOpenGroup="{{ noop }}" onContribute="{{ noop }}" onOpenProfile="{{ noop }}" hint-size="390px,800px"></x-import>
+                  <div style="position: absolute; left: 20px; right: 20px; bottom: 20px;">
+                    <x-import component-from-global-scope="NjangiDesignSystem_003348.TabBar" items="{{ tabItems }}" value="home" onChange="{{ noop }}" fab="plus" onFab="{{ noop }}" hint-size="100%,64px"></x-import>
+                  </div>
+                </x-import>
+              </div>
+            </div>
+            <div style="position: {{ phonePos }}; inset: {{ phoneInset }}; flex: none; width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; scroll-snap-align: center; opacity: {{ p1 }}; transition: opacity 340ms var(--ease-standard); z-index: {{ z1 }};">
+              <div style="width: {{ phoneInnerW }}; height: {{ phoneInnerH }}; transform: scale({{ phoneScale }}); transform-origin: {{ phoneOrigin }};">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="GroupScreen" from="app/GroupScreen.jsx" onBack="{{ noop }}" onContribute="{{ noop }}" hint-size="390px,800px"></x-import>
+                  <div style="position: absolute; left: 20px; right: 20px; bottom: 20px;">
+                    <x-import component-from-global-scope="NjangiDesignSystem_003348.TabBar" items="{{ tabItems }}" value="groups" onChange="{{ noop }}" fab="plus" onFab="{{ noop }}" hint-size="100%,64px"></x-import>
+                  </div>
+                </x-import>
+              </div>
+            </div>
+            <div style="position: {{ phonePos }}; inset: {{ phoneInset }}; flex: none; width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; scroll-snap-align: center; opacity: {{ p2 }}; transition: opacity 340ms var(--ease-standard); z-index: {{ z2 }};">
+              <div style="width: {{ phoneInnerW }}; height: {{ phoneInnerH }}; transform: scale({{ phoneScale }}); transform-origin: {{ phoneOrigin }};">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="ContributeScreen" from="app/ContributeScreen.jsx" onBack="{{ noop }}" onSent="{{ noop }}" hint-size="390px,800px"></x-import>
+                </x-import>
+              </div>
+            </div>
+            <div style="position: {{ phonePos }}; inset: {{ phoneInset }}; flex: none; width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; scroll-snap-align: center; opacity: {{ p3 }}; transition: opacity 340ms var(--ease-standard); z-index: {{ z3 }};">
+              <div style="width: {{ phoneInnerW }}; height: {{ phoneInnerH }}; transform: scale({{ phoneScale }}); transform-origin: {{ phoneOrigin }};">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="WalletScreen" from="app/WalletScreen.jsx" hint-size="390px,800px"></x-import>
+                  <div style="position: absolute; left: 20px; right: 20px; bottom: 20px;">
+                    <x-import component-from-global-scope="NjangiDesignSystem_003348.TabBar" items="{{ tabItems }}" value="wallet" onChange="{{ noop }}" fab="plus" onFab="{{ noop }}" hint-size="100%,64px"></x-import>
+                  </div>
+                </x-import>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ isNarrowShowcase }}">
+      <div>
+        <div class="nj-strip" onScroll="{{ onStripScroll }}" style="display: flex; gap: 20px; margin-top: 30px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-inline: {{ stripPadInline }};">
+          <div style="flex: none; width: {{ phoneBoxW }}; scroll-snap-align: center;">
+            <div style="min-height: 178px;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="width: 22px; height: 3px; border-radius: 999px; background: var(--clay-500); flex: none;"></span>
+                <span style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ f1k }}</span>
+              </div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: 21px; color: var(--text-heading); margin: 10px 0 0;">{{ f1t }}</h3>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ f1b }}</p>
+            </div>
+            <div style="width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; overflow: hidden;">
+              <div style="width: 390px; height: 844px; transform: scale({{ phoneScale }}); transform-origin: top left;">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="HomeScreen" from="app/HomeScreen.jsx" onOpenGroup="{{ noop }}" onContribute="{{ noop }}" onOpenProfile="{{ noop }}" hint-size="390px,800px"></x-import>
+                  <div style="position: absolute; left: 20px; right: 20px; bottom: 20px;">
+                    <x-import component-from-global-scope="NjangiDesignSystem_003348.TabBar" items="{{ tabItems }}" value="home" onChange="{{ noop }}" fab="plus" onFab="{{ noop }}" hint-size="100%,64px"></x-import>
+                  </div>
+                </x-import>
+              </div>
+            </div>
+          </div>
+          <div style="flex: none; width: {{ phoneBoxW }}; scroll-snap-align: center;">
+            <div style="min-height: 178px;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="width: 22px; height: 3px; border-radius: 999px; background: var(--clay-500); flex: none;"></span>
+                <span style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ f2k }}</span>
+              </div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: 21px; color: var(--text-heading); margin: 10px 0 0;">{{ f2t }}</h3>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ f2b }}</p>
+            </div>
+            <div style="width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; overflow: hidden;">
+              <div style="width: 390px; height: 844px; transform: scale({{ phoneScale }}); transform-origin: top left;">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="GroupScreen" from="app/GroupScreen.jsx" onBack="{{ noop }}" onContribute="{{ noop }}" hint-size="390px,800px"></x-import>
+                  <div style="position: absolute; left: 20px; right: 20px; bottom: 20px;">
+                    <x-import component-from-global-scope="NjangiDesignSystem_003348.TabBar" items="{{ tabItems }}" value="groups" onChange="{{ noop }}" fab="plus" onFab="{{ noop }}" hint-size="100%,64px"></x-import>
+                  </div>
+                </x-import>
+              </div>
+            </div>
+          </div>
+          <div style="flex: none; width: {{ phoneBoxW }}; scroll-snap-align: center;">
+            <div style="min-height: 178px;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="width: 22px; height: 3px; border-radius: 999px; background: var(--clay-500); flex: none;"></span>
+                <span style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ f3k }}</span>
+              </div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: 21px; color: var(--text-heading); margin: 10px 0 0;">{{ f3t }}</h3>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ f3b }}</p>
+            </div>
+            <div style="width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; overflow: hidden;">
+              <div style="width: 390px; height: 844px; transform: scale({{ phoneScale }}); transform-origin: top left;">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="ContributeScreen" from="app/ContributeScreen.jsx" onBack="{{ noop }}" onSent="{{ noop }}" hint-size="390px,800px"></x-import>
+                </x-import>
+              </div>
+            </div>
+          </div>
+          <div style="flex: none; width: {{ phoneBoxW }}; scroll-snap-align: center;">
+            <div style="min-height: 178px;">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="width: 22px; height: 3px; border-radius: 999px; background: var(--clay-500); flex: none;"></span>
+                <span style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ f4k }}</span>
+              </div>
+              <h3 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: 21px; color: var(--text-heading); margin: 10px 0 0;">{{ f4t }}</h3>
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ f4b }}</p>
+            </div>
+            <div style="width: {{ phoneBoxW }}; height: {{ phoneBoxH }}; overflow: hidden;">
+              <div style="width: 390px; height: 844px; transform: scale({{ phoneScale }}); transform-origin: top left;">
+                <x-import component-from-global-scope="PhoneFrame" from="app/Frame.jsx" hint-size="390px,844px">
+                  <x-import component-from-global-scope="WalletScreen" from="app/WalletScreen.jsx" hint-size="390px,800px"></x-import>
+                  <div style="position: absolute; left: 20px; right: 20px; bottom: 20px;">
+                    <x-import component-from-global-scope="NjangiDesignSystem_003348.TabBar" items="{{ tabItems }}" value="wallet" onChange="{{ noop }}" fab="plus" onFab="{{ noop }}" hint-size="100%,64px"></x-import>
+                  </div>
+                </x-import>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 7px; justify-content: center; margin-top: 20px;">
+          <span style="width: {{ dotW0 }}; height: 7px; border-radius: 999px; background: {{ dot0 }}; transition: all 220ms var(--ease-standard);"></span>
+          <span style="width: {{ dotW1 }}; height: 7px; border-radius: 999px; background: {{ dot1 }}; transition: all 220ms var(--ease-standard);"></span>
+          <span style="width: {{ dotW2 }}; height: 7px; border-radius: 999px; background: {{ dot2 }}; transition: all 220ms var(--ease-standard);"></span>
+          <span style="width: {{ dotW3 }}; height: 7px; border-radius: 999px; background: {{ dot3 }}; transition: all 220ms var(--ease-standard);"></span>
+        </div>
+      </div>
+      </sc-if>
+    </section>
+
+    <section style="background: var(--cocoa-900);">
+      <div style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px);">
+        <div style="display: grid; grid-template-columns: {{ numbersGrid }}; gap: clamp(32px, 4vw, 56px); align-items: center;" data-reveal>
+          <div>
+            <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--ochre-300);">{{ numEyebrow }}</div>
+            <h2 style="font: var(--weight-semibold) var(--text-3xl)/1.1 var(--font-display); font-size: clamp(24px, 3.4vw, 30px); letter-spacing: var(--tracking-tight); color: var(--white); margin: 14px 0 0; text-wrap: pretty;">{{ numTitle }}</h2>
+            <p style="font: var(--type-body); color: var(--cocoa-300); margin: 16px 0 0; max-width: 400px;">{{ numBody }}</p>
+            <div style="margin-top: 26px;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="gold" size="lg" iconAfter="arrow-right" onClick="{{ openSheet }}" hint-size="190px,54px">{{ ctaStart }}</x-import>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.StatTile" tone="gold" icon="users-round" label="{{ statActive }}" value="{{ nGroups }}" hint-size="100%,130px"></x-import>
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.StatTile" tone="accent" icon="hand-coins" label="{{ statMoved }}" value="8.4B" unit="FCFA" hint-size="100%,130px"></x-import>
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.StatTile" tone="plain" icon="calendar-check" label="{{ statOnTime }}" value="97" unit="%" delta="+4%" hint-size="100%,130px"></x-import>
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.StatTile" tone="plain" icon="repeat" label="{{ statCycles }}" value="{{ nCycles }}" hint-size="100%,130px"></x-import>
+          </div>
+        </div>
+        <sc-if value="{{ showNote }}" hint-placeholder-val="{{ true }}">
+          <p style="font: var(--type-caption); color: var(--cocoa-400); margin: 28px 0 0;">{{ noteText }}</p>
+        </sc-if>
+      </div>
+    </section>
+
+    <section style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px);">
+      <div data-reveal>
+        <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ tEyebrow }}</div>
+        <h2 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 12px 0 0;">{{ tTitle }}</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 32px;" data-reveal>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="peach" radius="3xl" pad="{{ 28 }}" hint-size="100%,260px">
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.IconTile" icon="quote" tone="dark" size="{{ 44 }}" radius="lg" hint-size="44px,44px"></x-import>
+          <p style="font: var(--weight-medium) var(--text-lg)/1.45 var(--font-display); color: var(--cocoa-900); margin: 20px 0 0;">{{ q1 }}</p>
+          <div style="display: flex; gap: 12px; align-items: center; margin-top: 22px;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Avatar" name="Ada Nkeng" src="{{ adaPhoto }}" size="lg" hint-size="48px,48px"></x-import>
+            <div>
+              <div style="font: var(--type-label); font-size: var(--text-base); color: var(--cocoa-900);">Ada Nkeng</div>
+              <div style="font: var(--type-caption); color: var(--cocoa-700); margin-top: 2px;">{{ q1m }}</div>
+            </div>
+          </div>
+        </x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="3xl" pad="{{ 28 }}" hint-size="100%,260px">
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.IconTile" icon="quote" tone="ochre" size="{{ 44 }}" radius="lg" hint-size="44px,44px"></x-import>
+          <p style="font: var(--weight-medium) var(--text-lg)/1.45 var(--font-display); color: var(--text-heading); margin: 20px 0 0;">{{ q2 }}</p>
+          <div style="display: flex; gap: 12px; align-items: center; margin-top: 22px;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Avatar" name="Kwei Ndam" src="{{ kweiPhoto }}" size="lg" hint-size="48px,48px"></x-import>
+            <div>
+              <div style="font: var(--type-label); font-size: var(--text-base); color: var(--text-heading);">Kwei Ndam</div>
+              <div style="font: var(--type-caption); color: var(--text-muted); margin-top: 2px;">{{ q2m }}</div>
+            </div>
+          </div>
+        </x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="3xl" pad="{{ 28 }}" hint-size="100%,260px">
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.IconTile" icon="quote" tone="palm" size="{{ 44 }}" radius="lg" hint-size="44px,44px"></x-import>
+          <p style="font: var(--weight-medium) var(--text-lg)/1.45 var(--font-display); color: var(--text-heading); margin: 20px 0 0;">{{ q3 }}</p>
+          <div style="display: flex; gap: 12px; align-items: center; margin-top: 22px;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Avatar" name="Eyong Tabi" src="{{ eyongPhoto }}" size="lg" hint-size="48px,48px"></x-import>
+            <div>
+              <div style="font: var(--type-label); font-size: var(--text-base); color: var(--text-heading);">Eyong Tabi</div>
+              <div style="font: var(--type-caption); color: var(--text-muted); margin-top: 2px;">{{ q3m }}</div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+    </section>
+
+    <section id="fees" style="background: var(--bg-inset);">
+      <div style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px);">
+        <div style="text-align: center; max-width: 560px; margin: 0 auto;" data-reveal>
+          <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ feesEyebrow }}</div>
+          <h2 style="font: var(--weight-semibold) var(--text-3xl)/1.1 var(--font-display); font-size: clamp(24px, 3.4vw, 30px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 14px 0 0;">{{ feesTitle }}</h2>
+          <p style="font: var(--type-body); color: var(--text-muted); margin: 12px 0 0;">{{ feesBody }}</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 40px; align-items: start;" data-reveal>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 24 }}" hint-size="100%,380px">
+            <div style="font: var(--type-h3); color: var(--text-heading);">{{ planFree }}</div>
+            <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 16px;">
+              <span style="font: var(--weight-semibold) var(--text-3xl)/1 var(--font-display); color: var(--text-heading); letter-spacing: var(--tracking-tight);">{{ priceFree }}</span>
+            </div>
+            <div style="font: var(--type-caption); color: var(--text-muted); margin-top: 4px;">{{ noteFree }}</div>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 22px;">
+              <sc-for list="{{ freeFeatures }}" as="f" hint-placeholder-count="4">
+                <div style="display: flex; gap: 10px; align-items: center; font: var(--type-body-sm); color: var(--text-body);"><x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="check" size="{{ 15 }}" hint-size="15px,15px"></x-import>{{ f }}</div>
+              </sc-for>
+            </div>
+            <div style="margin-top: 24px;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="secondary" size="md" block="{{ true }}" onClick="{{ openSheet }}" hint-size="100%,46px">{{ ctaStart }}</x-import>
+            </div>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="dark" radius="2xl" pad="{{ 24 }}" hint-size="100%,420px">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+              <div style="font: var(--type-h3); color: var(--white);">{{ planPlus }}</div>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Badge" tone="gold" hint-size="90px,24px">{{ badgePlus }}</x-import>
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 16px;">
+              <span style="font: var(--weight-semibold) var(--text-3xl)/1 var(--font-display); color: var(--white); letter-spacing: var(--tracking-tight);">{{ nPlus }}</span>
+              <span style="font: var(--type-body-sm); color: var(--cocoa-300);">FCFA</span>
+            </div>
+            <div style="font: var(--type-caption); color: var(--cocoa-300); margin-top: 4px;">{{ notePlus }}</div>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 22px;">
+              <sc-for list="{{ plusFeatures }}" as="f" hint-placeholder-count="5">
+                <div style="display: flex; gap: 10px; align-items: center; font: var(--type-body-sm); color: var(--cocoa-100);"><x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="check" size="{{ 15 }}" hint-size="15px,15px"></x-import>{{ f }}</div>
+              </sc-for>
+            </div>
+            <div style="margin-top: 24px;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="gold" size="md" block="{{ true }}" onClick="{{ openSheet }}" hint-size="100%,46px">{{ ctaPlus }}</x-import>
+            </div>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 24 }}" hint-size="100%,380px">
+            <div style="font: var(--type-h3); color: var(--text-heading);">{{ planAssoc }}</div>
+            <div style="display: flex; align-items: baseline; gap: 6px; margin-top: 16px;">
+              <span style="font: var(--weight-semibold) var(--text-3xl)/1 var(--font-display); color: var(--text-heading); letter-spacing: var(--tracking-tight);">{{ priceAssoc }}</span>
+            </div>
+            <div style="font: var(--type-caption); color: var(--text-muted); margin-top: 4px;">{{ noteAssoc }}</div>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 22px;">
+              <sc-for list="{{ assocFeatures }}" as="f" hint-placeholder-count="4">
+                <div style="display: flex; gap: 10px; align-items: center; font: var(--type-body-sm); color: var(--text-body);"><x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="check" size="{{ 15 }}" hint-size="15px,15px"></x-import>{{ f }}</div>
+              </sc-for>
+            </div>
+            <div style="margin-top: 24px;">
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="secondary" size="md" block="{{ true }}" onClick="{{ goContact }}" hint-size="100%,46px">{{ ctaSales }}</x-import>
+            </div>
+          </x-import>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px);">
+      <div style="display: grid; grid-template-columns: {{ faqGrid }}; gap: clamp(32px, 4vw, 56px); align-items: start;" data-reveal>
+        <div>
+          <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ faqEyebrow }}</div>
+          <h2 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 12px 0 0;">{{ faqTitle }}</h2>
+          <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 12px 0 0;">{{ faqBody }}</p>
+          <div style="display: flex; gap: 10px; align-items: center; margin-top: 18px;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.SocialLogo" network="whatsapp" size="{{ 44 }}" radius="lg" hint-size="44px,44px"></x-import>
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="secondary" size="md" onClick="{{ goContact }}" hint-size="160px,46px">{{ faqCta }}</x-import>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="xl" pad="{{ 18 }}" onClick="{{ tFaq0 }}" hint-size="100%,60px">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="flex: 1; font: var(--type-h3); font-size: var(--text-base); color: var(--text-heading);">{{ fq1 }}</span>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="{{ faqIcon0 }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+            </div>
+            <sc-if value="{{ faq0 }}">
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 10px 0 0; max-width: 560px;">{{ fa1 }}</p>
+            </sc-if>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="xl" pad="{{ 18 }}" onClick="{{ tFaq1 }}" hint-size="100%,60px">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="flex: 1; font: var(--type-h3); font-size: var(--text-base); color: var(--text-heading);">{{ fq2 }}</span>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="{{ faqIcon1 }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+            </div>
+            <sc-if value="{{ faq1 }}">
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 10px 0 0; max-width: 560px;">{{ fa2 }}</p>
+            </sc-if>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="xl" pad="{{ 18 }}" onClick="{{ tFaq2 }}" hint-size="100%,60px">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="flex: 1; font: var(--type-h3); font-size: var(--text-base); color: var(--text-heading);">{{ fq3 }}</span>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="{{ faqIcon2 }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+            </div>
+            <sc-if value="{{ faq2 }}">
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 10px 0 0; max-width: 560px;">{{ fa3 }}</p>
+            </sc-if>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="xl" pad="{{ 18 }}" onClick="{{ tFaq3 }}" hint-size="100%,60px">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="flex: 1; font: var(--type-h3); font-size: var(--text-base); color: var(--text-heading);">{{ fq4 }}</span>
+              <x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="{{ faqIcon3 }}" size="{{ 18 }}" hint-size="18px,18px"></x-import>
+            </div>
+            <sc-if value="{{ faq3 }}">
+              <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 10px 0 0; max-width: 560px;">{{ fa4 }}</p>
+            </sc-if>
+          </x-import>
+        </div>
+      </div>
+    </section>
+
+    <sc-if value="{{ showNewsroom }}" hint-placeholder-val="{{ true }}">
+    <section style="background: var(--bg-inset);">
+      <div style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px);">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 12px;" data-reveal>
+          <div>
+            <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ newsEyebrow }}</div>
+            <h2 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 12px 0 0;">{{ newsTitle }}</h2>
+          </div>
+          <a href="#newsroom" onClick="{{ goNewsroom }}" style="font: var(--type-label); color: var(--text-link);">{{ allPosts }}</a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 28px;" data-reveal>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="2xl" pad="{{ 22 }}" onClick="{{ goNewsroom }}" hint-size="100%,180px">
+            <div style="font: var(--type-caption); color: var(--text-muted);">{{ n1d }}</div>
+            <div style="font: var(--type-h3); color: var(--text-heading); margin-top: 10px;">{{ n1t }}</div>
+            <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ n1b }}</p>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="2xl" pad="{{ 22 }}" onClick="{{ goNewsroom }}" hint-size="100%,180px">
+            <div style="font: var(--type-caption); color: var(--text-muted);">{{ n2d }}</div>
+            <div style="font: var(--type-h3); color: var(--text-heading); margin-top: 10px;">{{ n2t }}</div>
+            <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ n2b }}</p>
+          </x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="2xl" pad="{{ 22 }}" onClick="{{ goNewsroom }}" hint-size="100%,180px">
+            <div style="font: var(--type-caption); color: var(--text-muted);">{{ n3d }}</div>
+            <div style="font: var(--type-h3); color: var(--text-heading); margin-top: 10px;">{{ n3t }}</div>
+            <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ n3b }}</p>
+          </x-import>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <section style="max-width: 1180px; margin: 0 auto; padding: clamp(56px, 7vw, 84px) clamp(20px, 3vw, 32px) clamp(64px, 8vw, 96px);">
+      <div style="position: relative; border-radius: var(--radius-3xl); overflow: hidden;">
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="accent" radius="3xl" pad="{{ ctaPad }}" hint-size="100%,260px">
+        <div style="position: absolute; right: -70px; bottom: -110px; z-index: 0; color: rgba(255,255,255,0.14); pointer-events: none;">
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.LogoMark" size="{{ 340 }}" hint-size="340px,340px"></x-import>
+        </div>
+        <div style="position: relative; z-index: 1; display: flex; flex-direction: {{ ctaDir }}; align-items: {{ ctaAlign }}; gap: clamp(24px, 3vw, 40px);">
+          <div style="flex: 1;">
+            <h2 style="font: var(--weight-semibold) var(--text-3xl)/1.08 var(--font-display); font-size: clamp(24px, 3.4vw, 30px); color: var(--white); letter-spacing: var(--tracking-tight); margin: 0;">{{ ctaTitle }}</h2>
+            <p style="font: var(--type-body); font-size: var(--text-md); color: color-mix(in oklab, var(--white) 84%, transparent); margin: 14px 0 0; max-width: 480px;">{{ ctaBody }}</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; min-width: {{ ctaMinW }};">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="dark" size="lg" block="{{ true }}" iconAfter="arrow-right" onClick="{{ openSheet }}" hint-size="100%,54px">{{ ctaStart }}</x-import>
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="secondary" size="lg" block="{{ true }}" icon="smartphone" onClick="{{ openSheet }}" hint-size="100%,54px">{{ ctaApp }}</x-import>
+          </div>
+        </div>
+      </x-import>
+      </div>
+    </section>
+
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isAbout }}">
+  <main style="max-width: 900px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 32px) clamp(64px, 8vw, 96px);">
+    <a href="#top" onClick="{{ goHome }}" style="font: var(--type-label); color: var(--text-link);">{{ backHome }}</a>
+    <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600); margin-top: 28px;">{{ aboutEyebrow }}</div>
+    <h1 style="font: var(--weight-semibold) var(--text-4xl)/1.06 var(--font-display); font-size: clamp(28px, 5vw, 38px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 14px 0 0;">{{ aboutTitle }}</h1>
+    <p style="font: var(--type-body); font-size: var(--text-md); color: var(--text-muted); margin: 18px 0 0; max-width: 640px;">{{ aboutBody }}</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 40px;">
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 20 }}" hint-size="100%,150px">
+        <div style="font: var(--type-h3); color: var(--text-heading);">{{ ab1t }}</div>
+        <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ ab1b }}</p>
+      </x-import>
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 20 }}" hint-size="100%,150px">
+        <div style="font: var(--type-h3); color: var(--text-heading);">{{ ab2t }}</div>
+        <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ ab2b }}</p>
+      </x-import>
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 20 }}" hint-size="100%,150px">
+        <div style="font: var(--type-h3); color: var(--text-heading);">{{ ab3t }}</div>
+        <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ ab3b }}</p>
+      </x-import>
+    </div>
+
+    <div id="careers" style="margin-top: 64px; scroll-margin-top: 110px;">
+      <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ careersEyebrow }}</div>
+      <h2 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 12px 0 0;">{{ careersTitle }}</h2>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" icon="smartphone" iconTone="clay" title="{{ r1t }}" subtitle="{{ r1s }}" value="{{ applyLabel }}" chevron="{{ true }}" onClick="{{ goContact }}" hint-size="100%,72px"></x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" icon="users-round" iconTone="ochre" title="{{ r2t }}" subtitle="{{ r2s }}" value="{{ applyLabel }}" chevron="{{ true }}" onClick="{{ goContact }}" hint-size="100%,72px"></x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" icon="shield-check" iconTone="palm" title="{{ r3t }}" subtitle="{{ r3s }}" value="{{ applyLabel }}" chevron="{{ true }}" onClick="{{ goContact }}" hint-size="100%,72px"></x-import>
+      </div>
+    </div>
+
+    <div id="security" style="margin-top: 64px; scroll-margin-top: 110px;">
+      <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ secEyebrow }}</div>
+      <h2 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 12px 0 0;">{{ secTitle }}</h2>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" icon="shield-check" iconTone="palm" title="{{ sec1t }}" subtitle="{{ sec1s }}" hint-size="100%,72px"></x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" icon="lock" iconTone="indigo" title="{{ sec2t }}" subtitle="{{ sec2s }}" hint-size="100%,72px"></x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.ListRow" icon="scroll-text" iconTone="ochre" title="{{ sec3t }}" subtitle="{{ sec3s }}" hint-size="100%,72px"></x-import>
+      </div>
+    </div>
+
+    <div id="contact" style="margin-top: 64px; scroll-margin-top: 110px;">
+      <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600);">{{ contactEyebrow }}</div>
+      <h2 style="font: var(--weight-semibold) var(--text-2xl)/1.15 var(--font-display); font-size: clamp(21px, 3vw, 24px); color: var(--text-heading); margin: 12px 0 0;">{{ contactTitle }}</h2>
+      <p style="font: var(--type-body); color: var(--text-muted); margin: 12px 0 0;">{{ contactBody }}</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 20px;">
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="2xl" pad="{{ 20 }}" hint-size="100%,120px">
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.SocialLogo" network="whatsapp" size="{{ 36 }}" radius="md" hint-size="36px,36px"></x-import>
+            <div>
+              <div style="font: var(--type-label); color: var(--text-heading);">WhatsApp</div>
+              <div style="font: var(--type-body-sm); color: var(--text-muted); margin-top: 4px; font-family: var(--font-mono);">+237 6 55 00 12 12</div>
+            </div>
+          </div>
+        </x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="2xl" pad="{{ 20 }}" hint-size="100%,120px">
+          <div style="font: var(--type-label); color: var(--text-heading);">{{ lblEmail }}</div>
+          <div style="font: var(--type-body-sm); color: var(--text-muted); margin-top: 6px;">bonjour@njangi.cm</div>
+        </x-import>
+        <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" tone="outlined" radius="2xl" pad="{{ 20 }}" hint-size="100%,120px">
+          <div style="font: var(--type-label); color: var(--text-heading);">{{ lblOffice }}</div>
+          <div style="font: var(--type-body-sm); color: var(--text-muted); margin-top: 6px;">{{ office }}</div>
+        </x-import>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isNews }}">
+  <main style="max-width: 900px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 32px) clamp(64px, 8vw, 96px);">
+    <a href="#top" onClick="{{ goHome }}" style="font: var(--type-label); color: var(--text-link);">{{ backHome }}</a>
+    <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600); margin-top: 28px;">{{ newsEyebrow }}</div>
+    <h1 style="font: var(--weight-semibold) var(--text-4xl)/1.06 var(--font-display); font-size: clamp(28px, 5vw, 38px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 14px 0 0;">{{ newsPageTitle }}</h1>
+    <p style="font: var(--type-body); font-size: var(--text-md); color: var(--text-muted); margin: 18px 0 0; max-width: 620px;">{{ newsPageBody }}</p>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 40px;">
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 24 }}" hint-size="100%,150px">
+        <div style="font: var(--type-caption); color: var(--text-muted);">{{ np1d }}</div>
+        <div style="font: var(--type-h2); color: var(--text-heading); margin-top: 10px;">{{ n1t }}</div>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 10px 0 0; max-width: 620px;">{{ np1b }}</p>
+      </x-import>
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 24 }}" hint-size="100%,150px">
+        <div style="font: var(--type-caption); color: var(--text-muted);">{{ np2d }}</div>
+        <div style="font: var(--type-h2); color: var(--text-heading); margin-top: 10px;">{{ n2t }}</div>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 10px 0 0; max-width: 620px;">{{ np2b }}</p>
+      </x-import>
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Card" radius="2xl" pad="{{ 24 }}" hint-size="100%,150px">
+        <div style="font: var(--type-caption); color: var(--text-muted);">{{ np3d }}</div>
+        <div style="font: var(--type-h2); color: var(--text-heading); margin-top: 10px;">{{ n3t }}</div>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 10px 0 0; max-width: 620px;">{{ np3b }}</p>
+      </x-import>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isTerms }}">
+  <main style="max-width: 760px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 32px) clamp(64px, 8vw, 96px);">
+    <a href="#top" onClick="{{ goHome }}" style="font: var(--type-label); color: var(--text-link);">{{ backHome }}</a>
+    <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600); margin-top: 28px;">{{ legalEyebrow }}</div>
+    <h1 style="font: var(--weight-semibold) var(--text-4xl)/1.06 var(--font-display); font-size: clamp(28px, 5vw, 38px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 14px 0 0;">{{ termsTitle }}</h1>
+    <p style="font: var(--type-caption); color: var(--text-muted); margin: 12px 0 0;">{{ updated }}</p>
+    <div style="display: flex; flex-direction: column; gap: 26px; margin-top: 36px;">
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ t1h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ t1b }}</p>
+      </div>
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ t2h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ t2b }}</p>
+      </div>
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ t3h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ t3b }}</p>
+      </div>
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ t4h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ t4b }}</p>
+      </div>
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ t5h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ t5b }}</p>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isPrivacy }}">
+  <main style="max-width: 760px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 32px) clamp(64px, 8vw, 96px);">
+    <a href="#top" onClick="{{ goHome }}" style="font: var(--type-label); color: var(--text-link);">{{ backHome }}</a>
+    <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--clay-600); margin-top: 28px;">{{ legalEyebrow }}</div>
+    <h1 style="font: var(--weight-semibold) var(--text-4xl)/1.06 var(--font-display); font-size: clamp(28px, 5vw, 38px); letter-spacing: var(--tracking-tight); color: var(--text-heading); margin: 14px 0 0;">{{ privacyTitle }}</h1>
+    <p style="font: var(--type-caption); color: var(--text-muted); margin: 12px 0 0;">{{ updated }}</p>
+    <div style="display: flex; flex-direction: column; gap: 26px; margin-top: 36px;">
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ p1h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ p1b }}</p>
+      </div>
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ p2h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ p2b }}</p>
+      </div>
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ p3h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ p3b }}</p>
+      </div>
+      <div>
+        <h2 style="font: var(--type-h3); color: var(--text-heading); margin: 0;">{{ p4h }}</h2>
+        <p style="font: var(--type-body); color: var(--text-muted); margin: 8px 0 0;">{{ p4b }}</p>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <footer style="background: var(--cocoa-900); color: var(--cocoa-300); padding: 64px 0 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 3vw, 32px);">
+      <div style="display: grid; grid-template-columns: {{ footerGrid }}; gap: clamp(24px, 3vw, 32px);">
+        <div>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Logo" variant="lockup" size="{{ 42 }}" tile="dark" color="var(--white)" hint-size="150px,42px"></x-import>
+          <p style="font: var(--type-body-sm); margin: 12px 0 0; max-width: 260px;">{{ footTagline }}</p>
+          <div style="margin-top: 18px;">
+            <x-import component-from-global-scope="NjangiDesignSystem_003348.SocialLinks" size="{{ 36 }}" radius="pill" gap="{{ 10 }}" hint-size="130px,36px"></x-import>
+          </div>
+        </div>
+        <div>
+          <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--cocoa-400);">{{ colProduct }}</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+            <a href="#how" onClick="{{ goHowLink }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ navHow }}</a>
+            <a href="#app" onClick="{{ goAppLink }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ navApp }}</a>
+            <a href="#fees" onClick="{{ goFeesLink }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ navFees }}</a>
+            <a href="#faq" onClick="{{ goFaqLink }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ navFaq }}</a>
+          </div>
+        </div>
+        <div>
+          <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--cocoa-400);">{{ colCompany }}</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+            <a href="#about" onClick="{{ goAbout }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ navAbout }}</a>
+            <a href="#newsroom" onClick="{{ goNewsroom }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ newsEyebrow }}</a>
+            <a href="#careers" onClick="{{ goCareers }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ careersEyebrow }}</a>
+            <a href="#contact" onClick="{{ goContact }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ contactEyebrow }}</a>
+          </div>
+        </div>
+        <div>
+          <div style="font: var(--type-overline); letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--cocoa-400);">{{ colTrust }}</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+            <a href="#security" onClick="{{ goSecurity }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ secEyebrow }}</a>
+            <a href="#terms" onClick="{{ goTerms }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ lTerms }}</a>
+            <a href="#privacy" onClick="{{ goPrivacy }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ privacyTitle }}</a>
+            <a href="#contact" onClick="{{ goContact }}" style="font: var(--type-body-sm); color: var(--cocoa-200);">{{ lComplaints }}</a>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 40px; flex-wrap: wrap;">
+        <span style="display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--cocoa-700); color: var(--cocoa-100); font: var(--type-body-sm);"><x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="smartphone" size="{{ 17 }}" hint-size="17px,17px"></x-import>{{ appStore }}</span>
+        <span style="display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--cocoa-700); color: var(--cocoa-100); font: var(--type-body-sm);"><x-import component-from-global-scope="NjangiDesignSystem_003348.Icon" name="smartphone" size="{{ 17 }}" hint-size="17px,17px"></x-import>{{ googlePlay }}</span>
+      </div>
+      <div style="border-top: 1px solid var(--cocoa-800); margin-top: 44px; padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font: var(--type-caption); color: var(--cocoa-400);">
+        <span>{{ copyright }}</span>
+        <span>{{ amountsNote }}</span>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ sheetOpen }}">
+    <div onClick="{{ closeSheet }}" style="position: fixed; inset: 0; z-index: 60; background: color-mix(in oklab, var(--cocoa-900) 42%, transparent); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; padding: 24px;">
+      <div onClick="{{ stop }}" style="width: min(440px, 100%); max-height: 88vh; overflow-y: auto; background: var(--white); border-radius: var(--radius-3xl); box-shadow: var(--shadow-xl); padding: clamp(20px, 5vw, 32px); animation: njRise 0.34s var(--ease-entrance) both;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;">
+          <div>
+            <h2 style="font: var(--type-h2); color: var(--text-heading); margin: 0;">{{ sheetTitle }}</h2>
+            <p style="font: var(--type-body-sm); color: var(--text-muted); margin: 8px 0 0;">{{ sheetBody }}</p>
+          </div>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.IconButton" icon="x" label="Close" onClick="{{ closeSheet }}" hint-size="40px,40px"></x-import>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 24px;">
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Input" label="{{ fGroupName }}" placeholder="Ndolo Ladies" hint-size="100%,76px"></x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Input" label="{{ fShare }}" placeholder="{{ nShare }}" prefix="FCFA" hint-size="100%,76px"></x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Select" label="{{ fFreq }}" options="{{ freqOptions }}" hint-size="100%,76px"></x-import>
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Input" label="{{ fPhone }}" placeholder="6 55 00 12 12" prefix="+237" hint-size="100%,76px"></x-import>
+        </div>
+        <div style="margin-top: 24px;">
+          <x-import component-from-global-scope="NjangiDesignSystem_003348.Button" variant="primary" size="lg" block="{{ true }}" iconAfter="arrow-right" onClick="{{ submitSheet }}" hint-size="100%,54px">{{ sheetCta }}</x-import>
+        </div>
+        <p style="font: var(--type-caption); color: var(--text-muted); margin: 14px 0 0; text-align: center;">{{ sheetNote }}</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toastOpen }}">
+    <div style="position: fixed; left: 50%; transform: translateX(-50%); bottom: 28px; z-index: 70; width: min(420px, calc(100vw - 40px)); animation: njRise 0.34s var(--ease-entrance) both;">
+      <x-import component-from-global-scope="NjangiDesignSystem_003348.Toast" tone="success" onClose="{{ hideToast }}" hint-size="100%,60px">{{ toastMsg }}</x-import>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;fr&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'en' | 'fr'&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showNewsroom&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showPlaceholderNote&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const DSBASE = '_ds/njangi-design-system-00334877-a694-4e80-820e-f39539bf88dc/assets/photos/people/';
+const PHOTO = (f) => DSBASE + f + '.jpg';
+
+const COPY = {
+  en: {
+    navHow: 'How it works', navApp: 'The app', navFees: 'Fees', navFaq: 'Questions', navAbout: 'About', navSignIn: 'Sign in',
+    ctaStart: 'Start a njangi', ctaHow: 'See how it works', ctaApp: 'Get the app',
+    heroEyebrow: 'Rotating savings, done right',
+    heroTitleA: 'Save together,', heroTitleB: 'collect in turn.',
+    heroBody: 'Everyone puts in the same amount each round. One person collects each time. Njangi keeps the order, sends the reminders and shows the whole group who has paid.',
+    heroProofStrong: '12,400 groups', heroProofRest: 'across Cameroon, Gabon and Chad',
+    potLabel: 'Ndolo Ladies · pot this cycle', paidOf: 'Six of eight paid', roundOf: 'Round 3 of 8',
+    collectsNow: 'Collects this round', turnLabel: 'Turn 3',
+    paidShare: 'Eyong paid his share', hoursAgo: '2 hours ago',
+    nudge: "You're up next — 480,000 lands 7 April.",
+    nPot: '480,000', nShare: '25,000', nGroups: '12,400', nCycles: '31,900', nPlus: '2,000',
+    howEyebrow: 'How it works',
+    howTitle: 'The same njangi you already run. Less arguing about who paid.',
+    s1t: 'Start the group', s1b: 'Name it, set the amount and how often. Invite people with a code or a WhatsApp link.',
+    s2t: 'Draw the order', s2b: 'Everyone sees who collects when. Change it later only if the whole group agrees.',
+    s3t: 'Put in each round', s3b: 'MoMo, Orange Money or bank. Turn on auto-pay and you can forget about it.',
+    s4t: 'Collect your turn', s4b: 'The money moves straight to you. No pot sitting with anybody in between.',
+    appEyebrow: 'Inside the app', appTitle: "Four screens do the treasurer's whole job.",
+    appLeadWide: 'Scroll to walk through them.', appLeadNarrow: 'Swipe to walk through them.',
+    f1k: 'Home', f1t: 'Every group, one screen', f1b: 'What you have saved across all your njangis, what is due this week, and who paid since you last looked.',
+    f2k: 'Group', f2t: 'The payout order, in the open', f2b: "Members, turns and the rules the group agreed on. Nobody has to take the treasurer's word for it.",
+    f3k: 'Pay my share', f3t: 'Your share in three taps', f3b: 'MoMo, Orange Money or bank. It goes straight to whoever collects this round, and the group sees it land.',
+    f4k: 'Wallet', f4t: 'Every franc in and out', f4b: 'A year of contributions and payouts, kept as the record you can export when the cycle closes.',
+    numEyebrow: 'By the numbers', numTitle: 'Groups keep going because nobody has to keep the book.',
+    numBody: 'Reminders go out before the deadline, not after. Every payment lands in one shared record the whole group can see.',
+    statActive: 'Active groups', statMoved: 'Moved this year', statOnTime: 'Rounds paid on time', statCycles: 'Cycles completed',
+    noteText: 'Figures are placeholders pending the launch numbers.',
+    tEyebrow: 'From the groups', tTitle: 'What members tell us',
+    q1: 'We used to argue every Friday about who had paid. Now the list is just there, and everybody can see it.', q1m: 'Ndolo Ladies · Douala, 8 members',
+    q2: 'I run three njangis in the market. Before this I kept everything in one exercise book.', q2m: 'Marché Mokolo Traders · 10 members',
+    q3: 'The reminder two days early is the whole thing. Nobody is late any more.', q3m: 'Bamenda Boys FC · 6 members',
+    feesEyebrow: 'Fees', feesTitle: "We don't take a cut of your pot.",
+    feesBody: 'Most groups never pay us anything. Bigger ones pay per cycle, not per member.',
+    planFree: 'Group', priceFree: 'Free', noteFree: 'Up to 12 members',
+    freeFeatures: ['Shared payment record', 'Reminders before the deadline', 'MoMo and Orange Money', 'Payout order by draw'],
+    planPlus: 'Group plus', badgePlus: 'Most groups', notePlus: 'per cycle, any size',
+    plusFeatures: ['Everything in Group', 'Unlimited members', 'Export the cycle record', 'Late-fee tracking', 'Two group admins'],
+    ctaPlus: 'Choose plus',
+    planAssoc: 'Association', priceAssoc: 'Talk to us', noteAssoc: 'Unions, tontines, co-ops',
+    assocFeatures: ['Many groups in one place', 'Treasurer roles', 'Bank settlement', 'Onsite onboarding'],
+    ctaSales: 'Contact sales',
+    faqEyebrow: 'Questions', faqTitle: 'The things groups ask first',
+    faqBody: 'Still stuck? We answer on WhatsApp, usually within the hour.', faqCta: 'Message us',
+    fq1: 'Who holds the money?', fa1: 'Nobody. When a round closes, the money moves from each member straight to whoever is collecting. Njangi never sits in the middle of it.',
+    fq2: 'What if someone stops paying?', fa2: 'The group sees it the day it happens. You can charge the late fee you agreed on, or move that person\u2019s turn to the back.',
+    fq3: 'Can we change the payout order?', fa3: 'Yes, but everyone has to agree in the app. We keep a record of the change so nobody can dispute it later.',
+    fq4: 'Does it work without data?', fa4: 'Reminders go out by SMS, and you can pay from the USSD menu if you are offline.',
+    newsEyebrow: 'Newsroom', newsTitle: "What we've been writing", allPosts: 'All posts',
+    n1d: '12 August 2026', n1t: 'Why we never hold the pot', n1b: 'The money moves member to member. Here is how the settlement works, step by step.',
+    n2d: '28 July 2026', n2t: 'Six treasurers on their exercise books', n2b: 'What we learned sitting in on njangi meetings in Douala and Bamenda.',
+    n3d: '3 July 2026', n3t: 'Reminders that arrive two days early', n3b: 'Late payments dropped when we stopped nudging people on the deadline itself.',
+    ctaTitle: 'Get your group on it this week.',
+    ctaBody: "Set it up in about five minutes. Invite the people you already save with — they don't need to sign up before they can see the group.",
+    footTagline: 'The savings group you already run, with the record keeping taken off your hands.',
+    colProduct: 'Product', colCompany: 'Company', colTrust: 'Trust',
+    lTerms: 'Terms', lComplaints: 'Complaints',
+    appStore: 'App Store — coming soon', googlePlay: 'Google Play — coming soon',
+    copyright: '© 2026 Njangi. Douala, Cameroon.', amountsNote: 'Amounts shown in FCFA',
+    backHome: '← Back to home',
+    aboutEyebrow: 'About', aboutTitle: "We took the exercise book off the treasurer's hands.",
+    aboutBody: "Njangi is built in Douala for the savings groups people already run. We didn't invent the njangi and we don't want to change how yours works. We keep the record straight, send the reminders and stay out of the money.",
+    ab1t: 'Founded 2024', ab1b: 'Four people, one office in Bonapriso, and a lot of meetings held on plastic chairs.',
+    ab2t: 'Cameroon first', ab2b: 'FCFA, MoMo and Orange Money from day one. Gabon and Chad followed.',
+    ab3t: 'Never the pot', ab3b: 'We never hold your money. It moves member to member when the round closes.',
+    careersEyebrow: 'Careers', careersTitle: 'Three roles open', applyLabel: 'Apply',
+    r1t: 'Android engineer', r1s: 'Douala · full time',
+    r2t: 'Group support lead', r2s: 'Douala · full time',
+    r3t: 'Compliance officer', r3s: 'Yaoundé · full time',
+    secEyebrow: 'Security', secTitle: 'How the money is kept safe',
+    sec1t: 'We never hold the pot', sec1s: 'Payments settle member to member through a licensed provider',
+    sec2t: 'Four-digit code plus device check', sec2s: 'A new phone has to be confirmed on the old one',
+    sec3t: 'Every change is on the record', sec3s: 'Order changes, late fees and removals are logged for the group',
+    contactEyebrow: 'Contact', contactTitle: 'Talk to a person',
+    contactBody: 'WhatsApp is fastest, usually within the hour. Complaints go to the same place and we answer in writing within five working days.',
+    lblEmail: 'Email', lblOffice: 'Office', office: 'Rue Bonapriso, Douala',
+    newsPageTitle: 'Notes from the groups.', newsPageBody: 'What we are building, what we got wrong, and what treasurers keep telling us.',
+    np1d: '12 August 2026 · Product', np1b: "When a round closes, each member's share moves straight to whoever collects. Nothing waits in an account of ours, which means there is no float to lose and nothing to release.",
+    np2d: '28 July 2026 · Research', np2b: 'We sat in on njangi meetings in Douala and Bamenda for two months. The book was never the problem — remembering to chase people was.',
+    np3d: '3 July 2026 · Product', np3b: 'Nudging people on the deadline itself did almost nothing. Two days out, most groups now close a round without a single late share.',
+    legalEyebrow: 'Legal', termsTitle: 'Terms of use', privacyTitle: 'Privacy',
+    updated: 'Last updated 1 August 2026 · draft copy, pending legal review',
+    t1h: '1. What Njangi does', t1b: 'Njangi records the contributions and payout order of a savings group you set up yourself. We are a record-keeping and reminder service. We are not a bank and we do not hold your money.',
+    t2h: "2. Your group's rules", t2b: 'The amount, the frequency, the payout order and any late fee are agreed by your group. Changing them needs the agreement of every member in the app, and we keep a record of the change.',
+    t3h: '3. Payments', t3b: 'Payments are carried by licensed mobile-money and bank partners. If a transfer fails, the money stays with you and we will tell you why.',
+    t4h: '4. If someone stops paying', t4b: 'We show the group who is late. We do not recover debts, charge on your behalf, or guarantee anybody\u2019s share.',
+    t5h: '5. Ending your account', t5b: 'You can leave a group once your cycle is settled, and close your account any time after that. The group\u2019s record stays with the group.',
+    p1h: 'What we keep', p1b: 'Your name, phone number, the groups you belong to and the payments you make in them. Nothing else is needed to run a njangi.',
+    p2h: 'Who sees it', p2b: 'Your group sees your name and whether you have paid this round. Nobody outside the group sees anything, and we do not sell or share it.',
+    p3h: 'Reminders', p3b: 'We send SMS and push reminders about your own rounds. You can turn each one off in the app.',
+    p4h: 'Getting your record', p4b: 'Ask us and we will send your full payment record, or delete it once your cycles are settled.',
+    sheetTitle: 'Start a njangi', sheetBody: "Set it up here and we'll text you the invite link for the group.",
+    fGroupName: 'Group name', fShare: 'Share per round', fFreq: 'How often', fPhone: 'Your phone number',
+    sheetCta: 'Create the group', sheetNote: 'Nobody has to sign up before they can see the group.',
+    freqOptions: ['Weekly', 'Every two weeks', 'Monthly'],
+    toastMsg: "Your group is set up. We've texted the invite link.",
+    ctaShort: 'Get it'
+  },
+  fr: {
+    navHow: 'Comment ça marche', navApp: "L'application", navFees: 'Frais', navFaq: 'Questions', navAbout: 'À propos', navSignIn: 'Se connecter',
+    ctaStart: 'Créer un njangi', ctaHow: 'Voir comment ça marche', ctaApp: "Télécharger l'application",
+    heroEyebrow: 'Le njangi, tenu comme il faut',
+    heroTitleA: 'Épargnez ensemble,', heroTitleB: 'encaissez à tour de rôle.',
+    heroBody: "Chacun met la même somme à chaque tour. Une personne encaisse à chaque fois. Njangi garde l'ordre, envoie les rappels et montre à tout le groupe qui a payé.",
+    heroProofStrong: '12 400 groupes', heroProofRest: 'au Cameroun, au Gabon et au Tchad',
+    potLabel: 'Ndolo Ladies · la caisse de ce cycle', paidOf: 'Six sur huit ont payé', roundOf: 'Tour 3 sur 8',
+    collectsNow: 'Encaisse ce tour', turnLabel: 'Tour 3',
+    paidShare: 'Eyong a payé sa part', hoursAgo: 'Il y a 2 heures',
+    nudge: "C'est bientôt votre tour — 480 000 arrivent le 7 avril.",
+    nPot: '480 000', nShare: '25 000', nGroups: '12 400', nCycles: '31 900', nPlus: '2 000',
+    howEyebrow: 'Comment ça marche',
+    howTitle: 'Le même njangi que vous tenez déjà. Sans les disputes sur qui a payé.',
+    s1t: 'Créez le groupe', s1b: 'Donnez-lui un nom, fixez la somme et la fréquence. Invitez les gens avec un code ou un lien WhatsApp.',
+    s2t: "Tirez l'ordre", s2b: "Chacun voit qui encaisse et quand. On ne le change ensuite que si tout le groupe est d'accord.",
+    s3t: 'Mettez votre part chaque tour', s3b: "MoMo, Orange Money ou banque. Activez le paiement automatique et n'y pensez plus.",
+    s4t: 'Encaissez votre tour', s4b: "L'argent vous arrive directement. Personne ne garde la caisse entre-temps.",
+    appEyebrow: "Dans l'application", appTitle: 'Quatre écrans font tout le travail du trésorier.',
+    appLeadWide: 'Faites défiler pour les parcourir.', appLeadNarrow: 'Faites glisser pour les parcourir.',
+    f1k: 'Accueil', f1t: 'Tous vos groupes sur un écran', f1b: 'Ce que vous avez épargné dans tous vos njangis, ce qui est dû cette semaine, et qui a payé depuis votre dernière visite.',
+    f2k: 'Groupe', f2t: "L'ordre des versements, à découvert", f2b: "Les membres, les tours et les règles que le groupe a fixées. Personne n'a à croire le trésorier sur parole.",
+    f3k: 'Payer ma part', f3t: 'Votre part en trois gestes', f3b: "MoMo, Orange Money ou banque. L'argent va droit à celui qui encaisse ce tour, et le groupe le voit arriver.",
+    f4k: 'Portefeuille', f4t: 'Chaque franc entré et sorti', f4b: 'Un an de cotisations et de versements, gardé comme le relevé que vous pouvez exporter à la clôture du cycle.',
+    numEyebrow: 'En chiffres', numTitle: "Les groupes continuent parce que personne n'a plus à tenir le cahier.",
+    numBody: 'Les rappels partent avant la date, pas après. Chaque paiement arrive dans un relevé partagé que tout le groupe peut voir.',
+    statActive: 'Groupes actifs', statMoved: 'Déplacés cette année', statOnTime: 'Tours payés à temps', statCycles: 'Cycles terminés',
+    noteText: 'Chiffres provisoires, en attente des données de lancement.',
+    tEyebrow: 'Dans les groupes', tTitle: 'Ce que les membres nous disent',
+    q1: 'On se disputait chaque vendredi pour savoir qui avait payé. Maintenant la liste est là, et tout le monde la voit.', q1m: 'Ndolo Ladies · Douala, 8 membres',
+    q2: 'Je tiens trois njangis au marché. Avant, tout tenait dans un seul cahier.', q2m: 'Marché Mokolo Traders · 10 membres',
+    q3: "Le rappel deux jours avant, c'est tout le secret. Plus personne n'est en retard.", q3m: 'Bamenda Boys FC · 6 membres',
+    feesEyebrow: 'Frais', feesTitle: 'Nous ne prenons pas de part sur votre caisse.',
+    feesBody: 'La plupart des groupes ne nous paient rien. Les plus grands paient par cycle, pas par membre.',
+    planFree: 'Groupe', priceFree: 'Gratuit', noteFree: "Jusqu'à 12 membres",
+    freeFeatures: ['Relevé de paiement partagé', 'Rappels avant la date', 'MoMo et Orange Money', 'Ordre des versements par tirage'],
+    planPlus: 'Groupe plus', badgePlus: 'La plupart des groupes', notePlus: 'par cycle, quelle que soit la taille',
+    plusFeatures: ['Tout ce qui est dans Groupe', 'Membres illimités', 'Export du relevé de cycle', 'Suivi des pénalités de retard', 'Deux administrateurs'],
+    ctaPlus: 'Choisir plus',
+    planAssoc: 'Association', priceAssoc: 'Parlons-en', noteAssoc: 'Unions, tontines, coopératives',
+    assocFeatures: ['Plusieurs groupes au même endroit', 'Rôles de trésorier', 'Règlement bancaire', 'Formation sur place'],
+    ctaSales: 'Contacter le commercial',
+    faqEyebrow: 'Questions', faqTitle: 'Ce que les groupes demandent en premier',
+    faqBody: "Toujours bloqué ? Nous répondons sur WhatsApp, en général dans l'heure.", faqCta: 'Écrivez-nous',
+    fq1: "Qui garde l'argent ?", fa1: "Personne. À la clôture d'un tour, l'argent passe de chaque membre directement à celui qui encaisse. Njangi ne se met jamais au milieu.",
+    fq2: "Et si quelqu'un arrête de payer ?", fa2: 'Le groupe le voit le jour même. Vous pouvez appliquer la pénalité convenue, ou renvoyer son tour à la fin.',
+    fq3: "Peut-on changer l'ordre des versements ?", fa3: "Oui, mais tout le monde doit l'accepter dans l'application. Nous gardons une trace du changement pour que personne ne puisse le contester plus tard.",
+    fq4: 'Est-ce que ça marche sans données ?', fa4: 'Les rappels partent par SMS, et vous pouvez payer depuis le menu USSD si vous êtes hors ligne.',
+    newsEyebrow: 'Actualités', newsTitle: 'Ce que nous écrivons', allPosts: 'Tous les articles',
+    n1d: '12 août 2026', n1t: 'Pourquoi nous ne gardons jamais la caisse', n1b: "L'argent passe de membre à membre. Voici comment le règlement fonctionne, étape par étape.",
+    n2d: '28 juillet 2026', n2t: 'Six trésoriers et leurs cahiers', n2b: 'Ce que nous avons appris en assistant à des réunions de njangi à Douala et Bamenda.',
+    n3d: '3 juillet 2026', n3t: 'Des rappels qui arrivent deux jours avant', n3b: 'Les retards ont baissé quand nous avons arrêté de relancer les gens le jour même.',
+    ctaTitle: 'Lancez votre groupe cette semaine.',
+    ctaBody: 'Cinq minutes suffisent. Invitez ceux avec qui vous épargnez déjà — pas besoin de compte pour voir le groupe.',
+    footTagline: "Le groupe d'épargne que vous tenez déjà, sans la tenue des comptes.",
+    colProduct: 'Produit', colCompany: 'Entreprise', colTrust: 'Confiance',
+    lTerms: 'Conditions', lComplaints: 'Réclamations',
+    appStore: 'App Store — bientôt', googlePlay: 'Google Play — bientôt',
+    copyright: '© 2026 Njangi. Douala, Cameroun.', amountsNote: 'Montants en FCFA',
+    backHome: "← Retour à l'accueil",
+    aboutEyebrow: 'À propos', aboutTitle: 'Nous avons enlevé le cahier des mains du trésorier.',
+    aboutBody: "Njangi est construit à Douala pour les groupes d'épargne que les gens tiennent déjà. Nous n'avons pas inventé le njangi et nous ne voulons pas changer le vôtre. Nous gardons le relevé juste, envoyons les rappels et restons en dehors de l'argent.",
+    ab1t: 'Fondé en 2024', ab1b: 'Quatre personnes, un bureau à Bonapriso, et beaucoup de réunions sur des chaises en plastique.',
+    ab2t: "Le Cameroun d'abord", ab2b: 'FCFA, MoMo et Orange Money dès le premier jour. Le Gabon et le Tchad ont suivi.',
+    ab3t: 'Jamais la caisse', ab3b: 'Nous ne gardons jamais votre argent. Il passe de membre à membre à la clôture du tour.',
+    careersEyebrow: 'Carrières', careersTitle: 'Trois postes ouverts', applyLabel: 'Postuler',
+    r1t: 'Ingénieur Android', r1s: 'Douala · temps plein',
+    r2t: 'Responsable support groupes', r2s: 'Douala · temps plein',
+    r3t: 'Responsable conformité', r3s: 'Yaoundé · temps plein',
+    secEyebrow: 'Sécurité', secTitle: "Comment l'argent est protégé",
+    sec1t: 'Nous ne gardons jamais la caisse', sec1s: 'Les paiements se règlent de membre à membre via un prestataire agréé',
+    sec2t: "Code à quatre chiffres et contrôle de l'appareil", sec2s: "Un nouveau téléphone doit être confirmé sur l'ancien",
+    sec3t: 'Chaque changement est consigné', sec3s: "Changements d'ordre, pénalités et retraits sont enregistrés pour le groupe",
+    contactEyebrow: 'Contact', contactTitle: 'Parlez à une personne',
+    contactBody: "WhatsApp est le plus rapide, en général dans l'heure. Les réclamations arrivent au même endroit et nous répondons par écrit dans les cinq jours ouvrés.",
+    lblEmail: 'E-mail', lblOffice: 'Bureau', office: 'Rue Bonapriso, Douala',
+    newsPageTitle: 'Notes des groupes.', newsPageBody: 'Ce que nous construisons, ce que nous avons raté, et ce que les trésoriers nous répètent.',
+    np1d: '12 août 2026 · Produit', np1b: "À la clôture d'un tour, la part de chaque membre va droit à celui qui encaisse. Rien n'attend sur un compte à nous : il n'y a pas de flottant à perdre ni rien à débloquer.",
+    np2d: '28 juillet 2026 · Recherche', np2b: "Nous avons assisté à des réunions de njangi à Douala et Bamenda pendant deux mois. Le cahier n'a jamais été le problème — c'était de penser à relancer les gens.",
+    np3d: '3 juillet 2026 · Produit', np3b: 'Relancer le jour même ne changeait presque rien. Deux jours avant, la plupart des groupes closent un tour sans une seule part en retard.',
+    legalEyebrow: 'Légal', termsTitle: "Conditions d'utilisation", privacyTitle: 'Confidentialité',
+    updated: 'Dernière mise à jour le 1er août 2026 · texte provisoire, en attente de revue juridique',
+    t1h: '1. Ce que fait Njangi', t1b: "Njangi enregistre les cotisations et l'ordre des versements d'un groupe d'épargne que vous créez vous-même. Nous sommes un service de tenue de relevé et de rappels. Nous ne sommes pas une banque et nous ne gardons pas votre argent.",
+    t2h: '2. Les règles de votre groupe', t2b: "La somme, la fréquence, l'ordre des versements et toute pénalité sont fixés par votre groupe. Les changer demande l'accord de chaque membre dans l'application, et nous en gardons une trace.",
+    t3h: '3. Paiements', t3b: "Les paiements sont portés par des partenaires mobile money et bancaires agréés. Si un transfert échoue, l'argent reste chez vous et nous vous disons pourquoi.",
+    t4h: "4. Si quelqu'un arrête de payer", t4b: 'Nous montrons au groupe qui est en retard. Nous ne recouvrons pas de dettes, ne prélevons rien à votre place et ne garantissons la part de personne.',
+    t5h: '5. Fermer votre compte', t5b: 'Vous pouvez quitter un groupe une fois votre cycle réglé, et fermer votre compte à tout moment ensuite. Le relevé du groupe reste au groupe.',
+    p1h: 'Ce que nous gardons', p1b: "Votre nom, votre numéro de téléphone, les groupes dont vous faites partie et les paiements que vous y faites. Rien d'autre n'est nécessaire pour tenir un njangi.",
+    p2h: 'Qui le voit', p2b: 'Votre groupe voit votre nom et si vous avez payé ce tour. Personne en dehors du groupe ne voit quoi que ce soit, et nous ne le vendons ni ne le partageons.',
+    p3h: 'Rappels', p3b: "Nous envoyons des rappels par SMS et par notification pour vos propres tours. Vous pouvez désactiver chacun dans l'application.",
+    p4h: 'Obtenir votre relevé', p4b: 'Demandez-le et nous vous envoyons votre relevé complet, ou nous le supprimons une fois vos cycles réglés.',
+    sheetTitle: 'Créer un njangi', sheetBody: "Configurez-le ici et nous vous enverrons le lien d'invitation par SMS.",
+    fGroupName: 'Nom du groupe', fShare: 'Part par tour', fFreq: 'À quelle fréquence', fPhone: 'Votre numéro de téléphone',
+    sheetCta: 'Créer le groupe', sheetNote: "Personne n'a besoin de compte pour voir le groupe.",
+    freqOptions: ['Chaque semaine', 'Toutes les deux semaines', 'Chaque mois'],
+    toastMsg: "Votre groupe est créé. Nous vous avons envoyé le lien d'invitation.",
+    ctaShort: 'Obtenir'
+  }
+};
+
+class Component extends DCLogic {
+  state = { page: 'home', lang: this.props.defaultLang || 'en', sheet: false, toast: false, feature: 0, faq: [true, false, false, false], menu: false, bp: this._bpNow(), vw: this._vw(), stripIdx: 0 };
+
+  _vw() { return typeof window === 'undefined' ? 1280 : window.innerWidth; }
+
+  _bpNow() {
+    const w = this._vw();
+    return w < 720 ? 'mobile' : w < 1100 ? 'tablet' : 'desktop';
+  }
+
+  componentDidMount() {
+    this._onScroll = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => {
+        this._raf = null;
+        const els = Array.from(document.querySelectorAll('[data-feature]'));
+        if (!els.length) return;
+        const mid = window.innerHeight * 0.42;
+        let best = 0, bestD = Infinity;
+        els.forEach((el, i) => {
+          const r = el.getBoundingClientRect();
+          const d = Math.abs(r.top + r.height / 2 - mid);
+          if (d < bestD) { bestD = d; best = i; }
+        });
+        if (best !== this.state.feature) this.setState({ feature: best });
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onResize = () => {
+      const bp = this._bpNow();
+      const vw = this._vw();
+      if (bp !== this.state.bp || Math.abs(vw - this.state.vw) > 8) {
+        this.setState({ bp, vw, menu: bp === 'mobile' ? this.state.menu : false });
+      }
+    };
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+    this._onScroll();
+    this._reveal();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  _scrollToId(id) {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - 90), behavior: 'smooth' });
+  }
+
+  _menuLink(id) {
+    return (e) => {
+      if (e) e.preventDefault();
+      this.setState({ menu: false });
+      if (this.state.page !== 'home') this._go('home', id);
+      else setTimeout(() => this._scrollToId(id), 30);
+    };
+  }
+
+  _reveal() {
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.style.transition = 'opacity 500ms var(--ease-entrance), transform 500ms var(--ease-entrance)';
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '-8% 0px -8% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.95) return;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      io.observe(el);
+    });
+  }
+
+  _go(page, anchor) {
+    this.setState({ page }, () => {
+      const root = document.documentElement;
+      const prevBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (!anchor) { root.style.scrollBehavior = prevBehavior; return; }
+      let start = performance.now();
+      let hits = 0;
+      let lastH = -1;
+      const step = () => {
+        const el = document.getElementById(anchor);
+        if (!el) start = performance.now();
+        if (el) {
+          const off = el.getBoundingClientRect().top;
+          const h = document.documentElement.scrollHeight;
+          if (Math.abs(off - 100) <= 2 && h === lastH) {
+            if (++hits >= 4) { root.style.scrollBehavior = prevBehavior; return; }
+          } else {
+            hits = 0;
+            if (Math.abs(off - 100) > 2) window.scrollTo({ top: Math.max(0, off + window.scrollY - 100), behavior: 'instant' });
+          }
+          lastH = h;
+        }
+        if (performance.now() - start < 2500) requestAnimationFrame(step);
+        else root.style.scrollBehavior = prevBehavior;
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  _anchor(id) {
+    return (e) => {
+      if (this.state.page === 'home') return;
+      if (e) e.preventDefault();
+      this._go('home', id);
+    };
+  }
+
+  _toggleFaq(i) {
+    return () => {
+      const faq = this.state.faq.slice();
+      faq[i] = !faq[i];
+      this.setState({ faq });
+    };
+  }
+
+  renderVals() {
+    const { lang, page, feature, faq, bp, vw } = this.state;
+    const t = COPY[lang === 'fr' ? 'fr' : 'en'];
+    const en = lang !== 'fr';
+    const m = bp === 'mobile';
+    const narrow = m || bp === 'tablet';
+    const pill = (on) => (on ? 'var(--white)' : 'transparent');
+    const pillFg = (on) => (on ? 'var(--text-heading)' : 'var(--text-muted)');
+    const op = (i) => (feature === i ? 1 : 0.18);
+
+    // Phone mockup: on narrow screens the 390×844 frame is scaled down and its
+    // wrapper is sized to the SCALED box, so no phantom space is left behind.
+    const swipe = m;
+    const k = swipe ? Math.max(0.62, Math.min(0.92, (Math.min(vw, 900) - 56) / 390)) : 0.8;
+    const boxW = Math.round(390 * k);
+    const boxH = Math.round(844 * k);
+
+    return {
+      ...t,
+      appLead: swipe ? t.appLeadNarrow : t.appLeadWide,
+      ctaAppShort: m ? t.ctaShort : t.ctaApp,
+
+      isEn: en, isFr: !en,
+      showNewsroom: this.props.showNewsroom !== false,
+      showNote: this.props.showPlaceholderNote !== false,
+      setEn: () => this.setState({ lang: 'en' }),
+      setFr: () => this.setState({ lang: 'fr' }),
+      enPillBg: pill(en), enPillFg: pillFg(en),
+      frPillBg: pill(!en), frPillFg: pillFg(!en),
+
+      isHome: page === 'home',
+      isAbout: page === 'about',
+      isNews: page === 'newsroom',
+      isTerms: page === 'terms',
+      isPrivacy: page === 'privacy',
+
+      goHome: (e) => { if (e) e.preventDefault(); this._go('home'); },
+      goAbout: (e) => { if (e) e.preventDefault(); this._go('about'); },
+      goNewsroom: (e) => { if (e) e.preventDefault(); this._go('newsroom'); },
+      goCareers: (e) => { if (e) e.preventDefault(); this._go('about', 'careers'); },
+      goSecurity: (e) => { if (e) e.preventDefault(); this._go('about', 'security'); },
+      goContact: (e) => { if (e) e.preventDefault(); this._go('about', 'contact'); },
+      goTerms: (e) => { if (e) e.preventDefault(); this._go('terms'); },
+      goPrivacy: (e) => { if (e) e.preventDefault(); this._go('privacy'); },
+      goHowLink: this._anchor('how'),
+      goAppLink: this._anchor('app'),
+      goFeesLink: this._anchor('fees'),
+      goFaqLink: this._anchor('faq'),
+      goHow: () => {
+        const el = document.getElementById('how');
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+      },
+
+      heroGrid: narrow ? '1fr' : '1.05fr 0.95fr',
+      numbersGrid: m ? '1fr' : '1fr 1.2fr',
+      faqGrid: m ? '1fr' : '0.8fr 1.2fr',
+      showcaseGrid: m ? '1fr' : '1fr 0.85fr',
+      footerGrid: m ? '1fr 1fr' : '1.4fr 1fr 1fr 1fr',
+      navDisplay: m ? 'none' : 'flex',
+      spacerFlex: m ? 1 : 0,
+      signinDisplay: m ? 'none' : 'inline-flex',
+      menuBtnDisplay: m ? 'inline-flex' : 'none',
+      menuIcon: this.state.menu ? 'x' : 'menu',
+      menuOpen: this.state.menu && m,
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      mHow: this._menuLink('how'),
+      mApp: this._menuLink('app'),
+      mFees: this._menuLink('fees'),
+      mFaq: this._menuLink('faq'),
+      mAbout: (e) => { if (e) e.preventDefault(); this.setState({ menu: false }); this._go('about'); },
+      mSignIn: (e) => { if (e) e.preventDefault(); this.setState({ menu: false, sheet: true }); },
+
+      isNarrowShowcase: swipe,
+      isWideShowcase: !swipe,
+      onStripScroll: (e) => {
+        const el = e.currentTarget;
+        const i = Math.max(0, Math.min(3, Math.round(el.scrollLeft / (boxW + 20))));
+        if (i !== this.state.stripIdx) this.setState({ stripIdx: i });
+      },
+      dot0: this.state.stripIdx === 0 ? 'var(--clay-500)' : 'var(--cocoa-200)',
+      dot1: this.state.stripIdx === 1 ? 'var(--clay-500)' : 'var(--cocoa-200)',
+      dot2: this.state.stripIdx === 2 ? 'var(--clay-500)' : 'var(--cocoa-200)',
+      dot3: this.state.stripIdx === 3 ? 'var(--clay-500)' : 'var(--cocoa-200)',
+      dotW0: this.state.stripIdx === 0 ? '22px' : '7px',
+      dotW1: this.state.stripIdx === 1 ? '22px' : '7px',
+      dotW2: this.state.stripIdx === 2 ? '22px' : '7px',
+      dotW3: this.state.stripIdx === 3 ? '22px' : '7px',
+      featurePad: m ? '20px 0 40px' : '60px 0 320px',
+      featureMinH: m ? 'auto' : '220px',
+      phoneOrder: m ? -1 : 0,
+      stripPos: swipe ? 'relative' : 'sticky',
+      stripWidth: swipe ? '100%' : '330px',
+      stripHeight: swipe ? boxH + 'px' : '700px',
+      stripDisplay: swipe ? 'flex' : 'block',
+      stripOverflow: swipe ? 'auto' : 'visible',
+      stripPadInline: swipe ? 'max(0px, calc((100% - ' + boxW + 'px) / 2))' : '0',
+      washDisplay: swipe ? 'none' : 'block',
+      phonePos: swipe ? 'relative' : 'absolute',
+      phoneInset: swipe ? 'auto' : '0',
+      phoneBoxW: swipe ? boxW + 'px' : 'auto',
+      phoneBoxH: swipe ? boxH + 'px' : 'auto',
+      phoneInnerW: swipe ? '390px' : '100%',
+      phoneInnerH: swipe ? '844px' : 'auto',
+      phoneOrigin: swipe ? 'top left' : 'top center',
+      phoneScale: k,
+      ctaDir: m ? 'column' : 'row',
+      ctaAlign: m ? 'stretch' : 'center',
+      ctaMinW: m ? '100%' : '230px',
+      ctaPad: m ? 26 : 48,
+
+      o0: op(0), o1: op(1), o2: op(2), o3: op(3),
+      p0: swipe ? 1 : (feature === 0 ? 1 : 0), p1: swipe ? 1 : (feature === 1 ? 1 : 0), p2: swipe ? 1 : (feature === 2 ? 1 : 0), p3: swipe ? 1 : (feature === 3 ? 1 : 0),
+      z0: feature === 0 ? 2 : 1, z1: feature === 1 ? 2 : 1, z2: feature === 2 ? 2 : 1, z3: feature === 3 ? 2 : 1,
+
+      faq0: faq[0], faq1: faq[1], faq2: faq[2], faq3: faq[3],
+      faqIcon0: faq[0] ? 'minus' : 'plus',
+      faqIcon1: faq[1] ? 'minus' : 'plus',
+      faqIcon2: faq[2] ? 'minus' : 'plus',
+      faqIcon3: faq[3] ? 'minus' : 'plus',
+      tFaq0: this._toggleFaq(0), tFaq1: this._toggleFaq(1), tFaq2: this._toggleFaq(2), tFaq3: this._toggleFaq(3),
+
+      sheetOpen: this.state.sheet,
+      toastOpen: this.state.toast,
+      openSheet: () => this.setState({ sheet: true }),
+      closeSheet: () => this.setState({ sheet: false }),
+      stop: (e) => { if (e) e.stopPropagation(); },
+      submitSheet: () => {
+        this.setState({ sheet: false, toast: true });
+        clearTimeout(this._t);
+        this._t = setTimeout(() => this.setState({ toast: false }), 4200);
+      },
+      hideToast: () => this.setState({ toast: false }),
+
+      sonaAvatar: (() => {
+        const NS = typeof window !== 'undefined' ? window.NjangiDesignSystem_003348 : null;
+        if (!NS || !NS.Avatar) return null;
+        return React.createElement(NS.Avatar, { name: 'Sona Bih', src: PHOTO('w-03'), size: 38, ring: 'gold' });
+      })(),
+      adaPhoto: PHOTO('w-01'), kweiPhoto: PHOTO('m-02'), eyongPhoto: PHOTO('m-01'), sonaPhoto: PHOTO('w-03'),
+      members: [
+        { name: 'Ada Nkeng', src: PHOTO('w-01') },
+        { name: 'Eyong Tabi', src: PHOTO('m-01') },
+        { name: 'Mbah Zita', src: PHOTO('w-02') },
+        { name: 'Sona Bih', src: PHOTO('w-03') },
+        { name: 'Ju Fomum', src: PHOTO('w-04') },
+        { name: 'Kwei Ndam', src: PHOTO('m-02') }
+      ],
+      tabItems: [
+        { value: 'home', label: en ? 'Home' : 'Accueil', logo: true },
+        { value: 'groups', label: en ? 'Groups' : 'Groupes', icon: 'users-round' },
+        { value: 'wallet', label: en ? 'Wallet' : 'Portefeuille', icon: 'wallet' }
+      ],
+      noop: () => {}
+    };
+  }
+}
+
+</script>
+</body>
+</html>

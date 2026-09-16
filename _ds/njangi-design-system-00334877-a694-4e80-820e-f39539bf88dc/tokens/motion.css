@@ -1,0 +1,8 @@
+:root{
+  --dur-instant:90ms; /* @kind other */--dur-fast:150ms; /* @kind other */--dur-base:220ms; /* @kind other */--dur-slow:340ms; /* @kind other */--dur-slower:520ms; /* @kind other */
+  --ease-standard:cubic-bezier(.22,.61,.36,1); /* @kind other */   /* default in/out */
+  --ease-entrance:cubic-bezier(.16,.84,.44,1); /* @kind other */   /* sheets, cards arriving */
+  --ease-exit:cubic-bezier(.4,0,.7,.2); /* @kind other */
+  --ease-spring:cubic-bezier(.34,1.4,.5,1); /* @kind other */      /* the one bouncy easing — payout + streak celebrations only */
+  --press-scale:0.97; /* @kind other */
+}

@@ -1,0 +1,34 @@
+:root{
+  --font-display:"Outfit","Helvetica Neue",system-ui,sans-serif;
+  --font-body:"Figtree","Helvetica Neue",system-ui,sans-serif;
+  --font-mono:"DM Mono",ui-monospace,"SF Mono",monospace;
+  /* The wordmark only. Never used for UI copy. */
+  --font-wordmark:"Urbanist","Outfit",system-ui,sans-serif;
+
+  --weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+
+  /* Sizes — mobile-first ramp. Display sizes come from the app's greeting
+     headers ("Morning, Budi" = 30/34); web hero scales up from there. */
+  --text-2xs:11px;--text-xs:12px;--text-sm:13px;--text-base:15px;
+  --text-md:17px;--text-lg:20px;--text-xl:24px;--text-2xl:30px;
+  --text-3xl:38px;--text-4xl:48px;--text-5xl:64px;
+
+  --leading-tight:1.1;--leading-snug:1.25;--leading-normal:1.45;--leading-relaxed:1.6;
+
+  --tracking-tight:-0.02em;--tracking-snug:-0.01em;--tracking-normal:0;
+  --tracking-wide:0.04em;--tracking-caps:0.09em;
+
+  /* Roles */
+  --type-display:var(--weight-semibold) var(--text-3xl)/var(--leading-tight) var(--font-display);
+  --type-h1:var(--weight-semibold) var(--text-2xl)/var(--leading-snug) var(--font-display);
+  --type-h2:var(--weight-semibold) var(--text-xl)/var(--leading-snug) var(--font-display);
+  --type-h3:var(--weight-semibold) var(--text-md)/var(--leading-snug) var(--font-display);
+  --type-body:var(--weight-regular) var(--text-base)/var(--leading-normal) var(--font-body);
+  --type-body-sm:var(--weight-regular) var(--text-sm)/var(--leading-normal) var(--font-body);
+  --type-label:var(--weight-semibold) var(--text-sm)/1.2 var(--font-body);
+  --type-caption:var(--weight-regular) var(--text-xs)/1.35 var(--font-body);
+  --type-overline:var(--weight-semibold) var(--text-2xs)/1.2 var(--font-body);
+  --type-amount:var(--weight-semibold) var(--text-2xl)/1.05 var(--font-display);
+  --type-mono:var(--weight-regular) var(--text-sm)/1.4 var(--font-mono);
+  --tracking-wordmark:-0.045em;
+}
